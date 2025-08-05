@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Plane, Eye, EyeOff, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Plane, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 export const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -32,15 +32,16 @@ export const Auth = () => {
     }
 
     setLoading(true);
-    
+
     try {
       if (isSignUp) {
         const { error } = await signUp(email, password, displayName);
         if (error) {
-          if (error.message.includes('already registered')) {
+          if (error.message.includes("already registered")) {
             toast({
               title: "Account exists",
-              description: "This email is already registered. Try signing in instead.",
+              description:
+                "This email is already registered. Try signing in instead.",
               variant: "destructive",
             });
           } else {
@@ -53,16 +54,18 @@ export const Auth = () => {
         } else {
           toast({
             title: "Check your email",
-            description: "We sent you a confirmation link to complete your registration.",
+            description:
+              "We sent you a confirmation link to complete your registration.",
           });
         }
       } else {
         const { error } = await signIn(email, password);
         if (error) {
-          if (error.message.includes('Invalid login credentials')) {
+          if (error.message.includes("Invalid login credentials")) {
             toast({
               title: "Invalid credentials",
-              description: "Please check your email and password and try again.",
+              description:
+                "Please check your email and password and try again.",
               variant: "destructive",
             });
           } else {
@@ -73,7 +76,7 @@ export const Auth = () => {
             });
           }
         } else {
-          navigate('/');
+          navigate("/");
         }
       }
     } catch (error) {
@@ -92,15 +95,15 @@ export const Auth = () => {
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-4">
-          <Button
+          {/* <Button
             variant="ghost"
             onClick={() => navigate('/')}
             className="absolute top-6 left-6 gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
-          </Button>
-          
+          </Button> */}
+
           <div className="flex items-center justify-center gap-3">
             <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-glow">
               <Plane className="h-7 w-7 text-primary-foreground" />
@@ -111,13 +114,12 @@ export const Auth = () => {
           </div>
           <div className="space-y-2">
             <h2 className="text-2xl font-semibold">
-              {isSignUp ? 'Create Account' : 'Welcome Back'}
+              {isSignUp ? "Create Account" : "Welcome Back"}
             </h2>
             <p className="text-muted-foreground">
-              {isSignUp 
-                ? 'Sign up to start tracking flights and managing your travel'
-                : 'Sign in to access your flight preferences and history'
-              }
+              {isSignUp
+                ? "Sign up to start tracking flights and managing your travel"
+                : "Sign in to access your flight preferences and history"}
             </p>
           </div>
         </div>
@@ -126,13 +128,13 @@ export const Auth = () => {
         <Card className="border-card-border shadow-medium">
           <CardHeader className="space-y-1 pb-4">
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              {isSignUp ? 'Already have an account?' : "Don't have an account?"}
+              {isSignUp ? "Already have an account?" : "Don't have an account?"}
               <Button
                 variant="link"
                 className="p-0 h-auto text-primary hover:text-primary-glow"
                 onClick={() => setIsSignUp(!isSignUp)}
               >
-                {isSignUp ? 'Sign In' : 'Sign Up'}
+                {isSignUp ? "Sign In" : "Sign Up"}
               </Button>
             </div>
           </CardHeader>
@@ -150,7 +152,7 @@ export const Auth = () => {
                   />
                 </div>
               )}
-              
+
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -163,13 +165,13 @@ export const Auth = () => {
                   className="border-input"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -191,13 +193,17 @@ export const Auth = () => {
                   </Button>
                 </div>
               </div>
-              
+
               <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary"
                 disabled={loading}
               >
-                {loading ? 'Please wait...' : (isSignUp ? 'Create Account' : 'Sign In')}
+                {loading
+                  ? "Please wait..."
+                  : isSignUp
+                  ? "Create Account"
+                  : "Sign In"}
               </Button>
             </form>
           </CardContent>
