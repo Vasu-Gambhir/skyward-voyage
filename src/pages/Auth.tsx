@@ -95,14 +95,14 @@ export const Auth = () => {
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-4">
-          <Button
+          {/* <Button
             variant="ghost"
             onClick={() => navigate("/")}
             className="absolute top-6 left-6 gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
-          </Button>
+          </Button> */}
 
           <div className="flex items-center justify-center gap-3">
             <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-glow">
