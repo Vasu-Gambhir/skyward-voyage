@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SkyWings - Premium Flight Booking Design System */
+
+@layer base {
+  :root {
+    /* Core Brand Colors */
+    --background: 220 20% 98%;
+    --foreground: 220 40% 15%;
+
+    /* Premium Blue Palette */
+    --primary: 220 90% 56%;
+    --primary-foreground: 220 20% 98%;
+    --primary-glow: 220 100% 70%;
+    
+    /* Sky Gradient Colors */
+    --sky-start: 200 100% 85%;
+    --sky-end: 220 90% 56%;
+    --cloud-white: 0 0% 98%;
+    
+    /* Surface Colors */
+    --card: 220 15% 99%;
+    --card-foreground: 220 40% 15%;
+    --card-border: 220 25% 90%;
+
+    --popover: 220 15% 99%;
+    --popover-foreground: 220 40% 15%;
+
+    /* Interactive Elements */
+    --secondary: 220 25% 94%;
+    --secondary-foreground: 220 40% 20%;
+    --secondary-hover: 220 35% 88%;
+
+    --muted: 220 20% 95%;
+    --muted-foreground: 220 25% 45%;
+
+    --accent: 200 100% 95%;
+    --accent-foreground: 220 90% 56%;
+
+    /* Status Colors */
+    --success: 140 80% 50%;
+    --success-foreground: 140 20% 98%;
+    --warning: 35 95% 60%;
+    --warning-foreground: 35 20% 15%;
+    --destructive: 0 85% 65%;
+    --destructive-foreground: 0 20% 98%;
+
+    /* Form Elements */
+    --border: 220 25% 88%;
+    --input: 220 20% 96%;
+    --input-border: 220 30% 85%;
+    --ring: 220 90% 56%;
+
+    /* Design System */
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-sky: linear-gradient(180deg, hsl(var(--sky-start)), hsl(var(--sky-end)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 4px 16px -4px hsl(var(--primary) / 0.15);
+    --shadow-strong: 0 8px 32px -8px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 32px hsl(var(--primary-glow) / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Theme - Premium Night Mode */
+    --background: 220 30% 8%;
+    --foreground: 220 15% 92%;
+
+    /* Dark Premium Blue */
+    --primary: 220 85% 65%;
+    --primary-foreground: 220 30% 8%;
+    --primary-glow: 220 100% 75%;
+
+    /* Dark Sky Gradients */
+    --sky-start: 220 40% 15%;
+    --sky-end: 220 85% 25%;
+    --cloud-white: 220 20% 95%;
+
+    /* Dark Surfaces */
+    --card: 220 25% 12%;
+    --card-foreground: 220 15% 90%;
+    --card-border: 220 30% 20%;
+
+    --popover: 220 25% 12%;
+    --popover-foreground: 220 15% 90%;
+
+    /* Dark Interactive */
+    --secondary: 220 25% 18%;
+    --secondary-foreground: 220 15% 85%;
+    --secondary-hover: 220 30% 22%;
+
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 15% 60%;
+
+    --accent: 220 40% 20%;
+    --accent-foreground: 220 85% 65%;
+
+    /* Dark Status */
+    --success: 140 70% 55%;
+    --success-foreground: 140 30% 8%;
+    --warning: 35 85% 65%;
+    --warning-foreground: 35 30% 8%;
+    --destructive: 0 75% 70%;
+    --destructive-foreground: 0 30% 8%;
+
+    /* Dark Forms */
+    --border: 220 25% 22%;
+    --input: 220 25% 15%;
+    --input-border: 220 30% 25%;
+    --ring: 220 85% 65%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Custom animations for the hero */
+  @keyframes fly {
+    0% {
+      transform: translateX(-100px) translateY(10px);
+    }
+    50% {
+      transform: translateX(50vw) translateY(-10px);
+    }
+    100% {
+      transform: translateX(100vw) translateY(10px);
+    }
+  }
+  
+  .animate-fly {
+    animation: fly 15s linear infinite;
+  }
+}
