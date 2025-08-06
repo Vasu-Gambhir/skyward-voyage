@@ -2,8 +2,11 @@
 
 A responsive, full-featured flight search application inspired by Google Flights. Built with **React**, powered by the **Sky-Scrapper API** (via RapidAPI), and backed by **Supabase** for user authentication and data storage.
 
-![screenshot-placeholder](https://via.placeholder.com/1200x600?text=App+Screenshot)
+-- 
 
+## URLs
+- Live URL - https://skyward-voyage.vercel.app/
+- Loom URL - https://www.loom.com/share/ddb19fc8afba4d11882f9a55de788bdb?sid=85c80db5-3bce-40f2-b34c-78393e650807
 ---
 
 ## 🚀 Features
@@ -14,14 +17,17 @@ A responsive, full-featured flight search application inspired by Google Flights
 - 🔄 **Sort Options** – by price, flight duration, and timing
 - 📋 **Flight Details View** – see all legs and carrier info
 - 🔐 **User Authentication** – sign up/login using Supabase
+- 🌐 **Multi-city & Round-trip Support**
+- 📱 **Fully Responsive** – Works beautifully on desktop & mobile
+
+---
+
+## Coming Soon
 - 🕘 **Recent Searches & History**
 - ❤️ **Favorite Routes or Airports**
 - 💹 **Price Tracker / Alerts**
-- 🌐 **Multi-city & Round-trip Support**
 - 💱 **Currency Selector**
 - 💡 **Theme Toggle** – Light & Dark Mode
-- 📱 **Fully Responsive** – Works beautifully on desktop & mobile
-
 ---
 
 ## 🧰 Tech Stack
@@ -51,7 +57,9 @@ npm install
 ```env
 VITE_RAPIDAPI_KEY=your_rapidapi_key
 VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+VITE_HOST="sky-scrapper.p.rapidapi.com"
+VITE_BASEURL="https://sky-scrapper.p.rapidapi.com/api"
 ```
 
 Then run the app:
@@ -95,20 +103,23 @@ Debounced input prevents excessive API requests during search.
 | Airport Suggestions     | ✅     |
 | Filters & Sorting       | ✅     |
 | User Authentication     | ✅     |
-| Recent Searches         | ✅     |
-| Favorites               | ✅     |
-| Price Alerts            | ✅     |
-| Currency Selector       | ✅     |
+| Recent Searches         | 🔜     |
+| Favorites               | 🔜     |
+| Price Alerts            | 🔜     |
+| Currency Selector       | 🔜     |
 | Round Trip & Multi-city | ✅     |
 | Routing                 | ✅     |
 | Responsive Design       | ✅     |
-| Light/Dark Mode         | ✅     |
+| Light/Dark Mode         | 🔜     |
 
 ---
 
 ## 📸 Screenshots
 
-_Coming soon — you can add screenshots or GIFs here._
+<img width="1900" height="909" alt="image" src="https://github.com/user-attachments/assets/a76a9b4c-f0c3-47fa-bead-364f5cdd47a6" />
+<img width="1901" height="906" alt="image" src="https://github.com/user-attachments/assets/b7ba1cb1-bc7f-4175-9ebe-c8bf03259558" />
+<img width="1917" height="908" alt="image" src="https://github.com/user-attachments/assets/f826b5ac-06b5-4d79-964e-afe5ad9d6f0c" />
+
 
 ---
 
