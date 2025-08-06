@@ -5,6 +5,7 @@ import { FlightSearch, SearchParams } from "@/components/FlightSearch";
 import { FlightResults } from "@/components/FlightResults";
 import { Flight, flightApi } from "@/services/flightApi";
 import { useToast } from "@/hooks/use-toast";
+import { demoFlights } from "@/lib/demoFlights";
 
 const Index = () => {
   const [flights, setFlights] = useState<Flight[]>([]);
@@ -38,6 +39,7 @@ const Index = () => {
       };
 
       const results = await flightApi.searchFlights(searchParams);
+      console.log("Resssssssssssssssssssssss", results);
       setFlights(results);
 
       toast({

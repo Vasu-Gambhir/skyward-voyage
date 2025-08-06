@@ -28,7 +28,9 @@ export const FlightFilters = ({
   const airlines = Array.from(
     new Set(
       flights.flatMap((flight) =>
-        flight.legs.flatMap((leg) => leg.carriers?.map((c) => c.name) || [])
+        flight.legs.flatMap(
+          (leg) => leg.carriers?.marketing?.map((c) => c.name) || []
+        )
       )
     )
   ).sort();

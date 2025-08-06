@@ -37,13 +37,15 @@ export interface Flight {
     };
     durationInMinutes: number;
     stopCount: number;
-    departure: string;
+    departure: string; // keep as string if you're not parsing to Date
     arrival: string;
-    carriers: Array<{
-      id: number;
-      logoUrl: string;
-      name: string;
-    }>;
+    carriers: {
+      marketing: Array<{
+        id: number;
+        logoUrl: string;
+        name: string;
+      }>;
+    };
   }>;
 }
 

@@ -10,7 +10,6 @@ interface FlightCardProps {
 }
 
 export const FlightCard = ({ flight, onSelect }: FlightCardProps) => {
-  console.log(flight);
   const leg = flight.legs[0];
 
   if (!leg) return null;
@@ -49,12 +48,7 @@ export const FlightCard = ({ flight, onSelect }: FlightCardProps) => {
             )}
             <div>
               <div className="font-medium text-sm">
-                {
-                  // @ts-ignore
-                  leg.carriers?.marketing[0]?.name ||
-                    leg.carriers?.[0]?.name ||
-                    "Unknown Airline"
-                }
+                {leg.carriers?.marketing[0]?.name || "Unknown Airline"}
               </div>
               <div className="text-xs text-muted-foreground">{leg.id}</div>
             </div>

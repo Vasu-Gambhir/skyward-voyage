@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Clock, Users, ArrowRight, Filter, SortAsc } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Flight } from '@/services/flightApi';
-import { FlightCard } from './FlightCard';
-import { FlightFilters } from './FlightFilters';
-import { FlightSort } from './FlightSort';
+import { useState } from "react";
+import { Clock, Users, ArrowRight, Filter, SortAsc } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Flight } from "@/services/flightApi";
+import { FlightCard } from "./FlightCard";
+import { FlightFilters } from "./FlightFilters";
+import { FlightSort } from "./FlightSort";
 
 interface FlightResultsProps {
   flights: Flight[];
@@ -14,28 +14,42 @@ interface FlightResultsProps {
   onFlightSelect?: (flight: Flight) => void;
 }
 
-export const FlightResults = ({ flights, isLoading = false, onFlightSelect }: FlightResultsProps) => {
+export const FlightResults = ({
+  flights,
+  isLoading = false,
+  onFlightSelect,
+}: FlightResultsProps) => {
   const [showFilters, setShowFilters] = useState(false);
-  const [sortBy, setSortBy] = useState<'price' | 'duration' | 'departure' | 'arrival'>('price');
+  const [sortBy, setSortBy] = useState<
+    "price" | "duration" | "departure" | "arrival"
+  >("price");
   const [filters, setFilters] = useState({
     priceRange: [0, 2000] as [number, number],
     stops: [] as string[],
     airlines: [] as string[],
     departureTime: [] as string[],
-    duration: [0, 24] as [number, number]
+    duration: [0, 24] as [number, number],
   });
 
   const filteredAndSortedFlights = flights
-    .filter(flight => {
+    .filter((flight) => {
       // Price filter
-      if (flight.price.raw < filters.priceRange[0] || flight.price.raw > filters.priceRange[1]) {
+      if (
+        flight.price.raw < filters.priceRange[0] ||
+        flight.price.raw > filters.priceRange[1]
+      ) {
         return false;
       }
 
       // Stops filter
       if (filters.stops.length > 0) {
         const stopCount = flight.legs[0]?.stopCount || 0;
-        const stopType = stopCount === 0 ? 'nonstop' : stopCount === 1 ? '1-stop' : '2plus-stops';
+        const stopType =
+          stopCount === 0
+            ? "nonstop"
+            : stopCount === 1
+            ? "1-stop"
+            : "2plus-stops";
         if (!filters.stops.includes(stopType)) {
           return false;
         }
@@ -43,8 +57,30 @@ export const FlightResults = ({ flights, isLoading = false, onFlightSelect }: Fl
 
       // Airlines filter
       if (filters.airlines.length > 0) {
-        const flightAirlines = flight.legs.flatMap(leg => leg.carriers?.map(c => c.name) || []);
-        if (!flightAirlines.some(airline => filters.airlines.includes(airline))) {
+        const flightAirlines = flight.legs.flatMap(
+          (leg) => leg.carriers?.marketing?.map((c) => c.name) || []
+        );
+        if (
+          !flightAirlines.some((airline) => filters.airlines.includes(airline))
+        ) {
+          return false;
+        }
+      }
+
+      // ✅ Departure Time filter
+      if (filters.departureTime.length > 0) {
+        const legDeparture = new Date(flight.legs[0]?.departure);
+        const hour = legDeparture.getHours();
+        console.log(legDeparture, " ", hour);
+        const matchesTimeFilter = filters.departureTime.some((time) => {
+          if (time === "early-morning") return hour >= 5 && hour < 12;
+          if (time === "afternoon") return hour >= 12 && hour < 18;
+          if (time === "evening") return hour >= 18 && hour < 24;
+          if (time === "overnight") return hour >= 0 && hour < 5;
+          return false;
+        });
+
+        if (!matchesTimeFilter) {
           return false;
         }
       }
@@ -53,14 +89,23 @@ export const FlightResults = ({ flights, isLoading = false, onFlightSelect }: Fl
     })
     .sort((a, b) => {
       switch (sortBy) {
-        case 'price':
+        case "price":
           return a.price.raw - b.price.raw;
-        case 'duration':
-          return (a.legs[0]?.durationInMinutes || 0) - (b.legs[0]?.durationInMinutes || 0);
-        case 'departure':
-          return new Date(a.legs[0]?.departure || 0).getTime() - new Date(b.legs[0]?.departure || 0).getTime();
-        case 'arrival':
-          return new Date(a.legs[0]?.arrival || 0).getTime() - new Date(b.legs[0]?.arrival || 0).getTime();
+        case "duration":
+          return (
+            (a.legs[0]?.durationInMinutes || 0) -
+            (b.legs[0]?.durationInMinutes || 0)
+          );
+        case "departure":
+          return (
+            new Date(a.legs[0]?.departure || 0).getTime() -
+            new Date(b.legs[0]?.departure || 0).getTime()
+          );
+        case "arrival":
+          return (
+            new Date(a.legs[0]?.arrival || 0).getTime() -
+            new Date(b.legs[0]?.arrival || 0).getTime()
+          );
         default:
           return 0;
       }
@@ -72,7 +117,9 @@ export const FlightResults = ({ flights, isLoading = false, onFlightSelect }: Fl
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-lg font-medium">Searching for flights...</p>
-          <p className="text-muted-foreground">Finding the best deals for you</p>
+          <p className="text-muted-foreground">
+            Finding the best deals for you
+          </p>
         </div>
       </div>
     );
@@ -102,7 +149,8 @@ export const FlightResults = ({ flights, isLoading = false, onFlightSelect }: Fl
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h2 className="text-xl font-semibold">
-              {filteredAndSortedFlights.length} flight{filteredAndSortedFlights.length !== 1 ? 's' : ''} found
+              {filteredAndSortedFlights.length} flight
+              {filteredAndSortedFlights.length !== 1 ? "s" : ""} found
             </h2>
             <p className="text-muted-foreground">
               Showing results for your search
@@ -141,7 +189,11 @@ export const FlightResults = ({ flights, isLoading = false, onFlightSelect }: Fl
         )}
 
         {/* Flight Results */}
-        <div className={`space-y-4 ${showFilters ? 'lg:col-span-3' : 'lg:col-span-4'}`}>
+        <div
+          className={`space-y-4 ${
+            showFilters ? "lg:col-span-3" : "lg:col-span-4"
+          }`}
+        >
           {filteredAndSortedFlights.map((flight) => (
             <FlightCard
               key={flight.id}
